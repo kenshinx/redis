@@ -176,7 +176,16 @@ func (client *Client) openConnection() (c net.Conn, err error) {
             return
         }
     }
-    //TODO: handle authentication here
+
+    //handle authentication here authored by @shxsun
+	if client.Password != "" {
+		cmd := fmt.Sprintf("AUTH %s\r\n", client.Password)
+		_, err = client.rawSend(c, []byte(cmd))
+		if err != nil {
+			return
+		}
+	}
+
 
     return
 }
